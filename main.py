@@ -10,8 +10,10 @@ from fuzzywuzzy import fuzz
 import asyncio
 from googleapiclient.discovery import build
 from dotenv import load_dotenv
+import logging
 
 load_dotenv()
+logging.basicConfig(level=logging.INFO)
 
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 YOUTUBE_API_KEY = os.getenv('YOUTUBE_API_KEY')
