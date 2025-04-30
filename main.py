@@ -233,9 +233,11 @@ async def handle_bitrate_selection(call):
         response = await bot.send_message(call.message.chat.id, f"Downloading tracks...")
         audios = []
         for index, track in enumerate(tracks):
-            track_info = track.split(' - ')
-            track_name = track_info[0].split('. ', 1)[1]
-            artist_name = track_info[1] if len(track_info) > 1 else "Unknown Artist"
+            track_arr = track.split(' - ')
+            length = len(track_arr)
+            track_info = track[:-(len(track_arr[length - 1]) + 3)]
+            track_name = track_info.split('. ', 1)[1]
+            artist_name = track_arr[length - 1] if length > 1 else "Unknown Artist"
             await bot.edit_message_text(chat_id=call.message.chat.id, message_id=response.message_id, text=f"\n\nDownloading {track_name} by {artist_name}...\n{index}/{len(tracks)}")
             attempts = 0
             while attempts < 5:
