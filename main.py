@@ -202,6 +202,9 @@ async def download_playlist(message):
                 track = item['track']
                 track_name = track['name']
                 artist_name = track['artists'][0]['name']
+                if (len(track['artists']) > 1):
+                    for j in range(1, len(track['artists'])):
+                        artist_name += (", " + track['artists'][j]['name'])
                 tracks.append(f"{i}. {track_name} - {artist_name}")
             user_states[message.chat.id] = {'type': 'playlist', 'tracks': tracks}
             await bot.send_message(message.chat.id, "\n".join(tracks) + "\n\nChoose audio quality:", reply_markup=get_bitrate_keyboard())
@@ -212,6 +215,9 @@ async def download_playlist(message):
             track = sp.track(track_id)
             track_name = track['name']
             artist_name = track['artists'][0]['name']
+            if (len(track['artists']) > 1):
+                for j in range(1, len(track['artists'])):
+                    artist_name += (", " + track['artists'][j]['name'])
             user_states[message.chat.id] = {'type': 'track', 'track_name': track_name, 'artist_name': artist_name}
             await bot.send_message(message.chat.id, f"{track_name} - {artist_name}\n\nChoose audio quality:", reply_markup=get_bitrate_keyboard())
                 
